@@ -23,3 +23,5 @@ class BlogModelAdmin(ModelAdmin, ImportExportModelAdmin):
     list_display = ['title', 'slug', 'author', 'comments', 'category']
     list_filter = ['title', 'author', 'category']
     search_fields = ['category', 'author', 'title']
+
+    prepopulated_fields = {"slug" : ('title',)}

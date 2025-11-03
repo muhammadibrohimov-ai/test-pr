@@ -10,10 +10,10 @@
     <section id="breadcrumbs" class="breadcrumbs">
       <div class="container">
         <ol>
-          <li><a href="index.html">Home</a></li>
+          <li><a href="{% url 'home' %}">Home</a></li>
           <li>Portfolio Details</li>
         </ol>
-        <h2>Portfolio Details</h2>
+        <h2>{{ item.title }}</h2>
       </div>
     </section><!-- End Breadcrumbs -->
 
@@ -27,17 +27,17 @@
             <div class="portfolio-details-slider swiper">
               <div class="swiper-wrapper align-items-center">
 
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/portfolio-details-1.jpg" alt="">
+              <div class="swiper-slide">
+                  <img src="{{ item.main_image.url }}" alt="">
                 </div>
+                    {% for img in item.images.all %}
+                <div class="swiper-slide">
+                  <img src="{{ img.image.url }}" alt="">
+                </div>
+                        {% empty %}
+                        No images available
+                    {% endfor %}
 
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/portfolio-details-2.jpg" alt="">
-                </div>
-
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/portfolio-details-3.jpg" alt="">
-                </div>
 
               </div>
               <div class="swiper-pagination"></div>
@@ -46,18 +46,18 @@
 
           <div class="col-lg-4">
             <div class="portfolio-info">
-              <h3>Project information</h3>
+              <h3>{{ item.title }}</h3>
               <ul>
-                <li><strong>Category</strong>: Web design</li>
-                <li><strong>Client</strong>: ASU Company</li>
-                <li><strong>Project date</strong>: 01 March, 2020</li>
-                <li><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
+                <li><strong>Category</strong>: {{ item.category }}</li>
+                <li><strong>Client</strong>: {{ item.client }}</li>
+                <li><strong>Project date</strong>: {{ item.created_at }}</li>
+                <li><strong>Project URL</strong>: <a href="#">{{ item.project_url }}</a></li>
               </ul>
             </div>
             <div class="portfolio-description">
-              <h2>This is an example of portfolio detail</h2>
+              <h2>{{ item.title }}</h2>
               <p>
-                Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
+                {{ item.desc }}
               </p>
             </div>
           </div>

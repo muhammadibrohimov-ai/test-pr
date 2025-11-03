@@ -35,11 +35,8 @@ class HomePageView(ListView):
         return data
 
 
-class SinglePortfolioView(ListView):
+class SinglePortfolioView(DetailView):
     model = Portfolio
     template_name = 'main/portfolio-details.html'
     context_object_name = 'item'
 
-    def get_context_data(self, **kwargs):
-        data = super().get_context_data(**kwargs)
-        data['images'] = PortfolioImages.objects.filter(portfolio__pk = self.kwargs.get("pk"))

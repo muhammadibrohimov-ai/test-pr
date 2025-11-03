@@ -18,13 +18,14 @@ class Blog(models.Model):
     desc = models.TextField()
     category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='blog')
     created_at = models.DateTimeField(auto_now_add=True)
+    main_image = models.FileField(upload_to='blog', blank=True, null=True)
 
     def __str__(self):
         return self.title
 
 class BlogImages(models.Model):
     name = models.CharField(max_length=100)
-    image = models.FileField(upload_to='portfolio')
+    image = models.FileField(upload_to='blog')
     blog = models.ForeignKey('Blog', on_delete=models.CASCADE, related_name='images')
     created_at = models.DateTimeField(auto_now_add=True)
 

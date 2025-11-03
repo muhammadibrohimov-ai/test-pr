@@ -6,44 +6,52 @@
 
 <div class="col-lg-8 entries">
 
-  <article class="entry">
+    {% for blog in blogs|slice:":3" %}
+        <a href="{% url 'single' blog.pk %}">
+          <article class="entry">
 
     <div class="entry-img">
-      <img src="assets/img/blog/blog-1.jpg" alt="" class="img-fluid">
+      <img src="{{ blog.main_image.url }}" alt="" class="img-fluid">
     </div>
 
     <h2 class="entry-title">
-      <a href="blog-single.html">Dolorum optio tempore voluptas dignissimos cumque fuga qui quibusdam quia</a>
+      <a href="{% url 'single' blog.pk %}">{{ blog.title }}</a>
     </h2>
 
     <div class="entry-meta">
       <ul>
-        <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">John Doe</a></li>
-        <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">Jan 1, 2020</time></a></li>
-        <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">12 Comments</a></li>
+        <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#">{{ blog.author }}</a></li>
+        <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="#"><time>{{ blog.created_at }}</time></a></li>
+        <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="#">{{ blog.comments }} Comments</a></li>
       </ul>
     </div>
 
     <div class="entry-content">
       <p>
-        Similique neque nam consequuntur ad non maxime aliquam quas. Quibusdam animi praesentium. Aliquam et laboriosam eius aut nostrum quidem aliquid dicta.
-        Et eveniet enim. Qui velit est ea dolorem doloremque deleniti aperiam unde soluta. Est cum et quod quos aut ut et sit sunt. Voluptate porro consequatur assumenda perferendis dolore.
+        {{ blog.desc|slice:":200" }}
       </p>
       <div class="read-more">
-        <a href="blog-single.html">Read More</a>
+        <a href="{% url 'single' blog.id %}">Read More</a>
       </div>
     </div>
 
   </article><!-- End blog entry -->
+        </a>
+    {% endfor %}
 
 
-  <div class="blog-pagination">
+  {% if blogs.paginator %}
+      <div class="blog-pagination">
     <ul class="justify-content-center">
-      <li><a href="#">1</a></li>
-      <li class="active"><a href="#">2</a></li>
-      <li><a href="#">3</a></li>
+      {% for num in blogs.paginator.page_range %}
+          {% if blogs.num == num %}
+                <li class="active"><a href="#">{{ num }}</a></li>
+          {% endif %}
+          <li><a href="#">{{ num }}</a></li>
+        {% endfor %}
     </ul>
   </div>
+    {% endif %}
 
 </div><!-- End blog entries list -->
 
