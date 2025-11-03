@@ -12,6 +12,7 @@ class Clients(models.Model):
 
 
 class Services(models.Model):
+    icon = models.CharField(max_length=100, blank=True, null=True)
     title = models.CharField(max_length=100)
     desc = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
